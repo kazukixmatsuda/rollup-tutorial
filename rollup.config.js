@@ -1,10 +1,19 @@
-const { default: json } = require('@rollup/plugin-json');
+import json from '@rollup/plugin-json';
+import terser from '@rollup/plugin-terser';
 
-module.exports = {
+export default {
   input: 'src/main.js',
-  output: {
-    file: 'bundle.js',
-    format: 'cjs'
-  },
+  output: [
+    {
+      file: 'bundle.js',
+      format: 'cjs'
+    },
+    {
+      file: 'bundle.min.js',
+      format: 'iife',
+      name: 'version',
+      plugins: [terser()]
+    }
+  ],
   plugins: [json()]
 };
